@@ -9,7 +9,7 @@ Before you start make sure of the following
 
 ## installation ##
 
-knife bootstrap -t raspbian-wheezy-gems.erb -x root ip or fqdn of your pi
+   knife bootstrap -t raspbian-wheezy-gems.erb -x root ip or fqdn of your pi
 
 ## Ramifications of doing this ##
 
