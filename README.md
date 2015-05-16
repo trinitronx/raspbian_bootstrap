@@ -9,7 +9,15 @@ Before you start make sure of the following
 
 ## installation ##
 
-    knife bootstrap -t raspbian-wheezy-gems.erb -x root ip or fqdn of your pi
+    knife bootstrap -t raspbian-wheezy-gems.erb -x root address_of_your_pi
+
+Or to sudo in via pi user if you don't have root access (I set up my ssh keys first)
+
+    knife bootstrap -t raspbian-wheezy-gems.erb --ssh-user pi --sudo address_of_your_pi
+
+What I personally will be doing later for new Pi's is applying my [d-base](https://github.com/dayne/d-base) cookbook as part of default run list.
+
+    knife bootstrap -t raspbian-wheezy-gems.erb --ssh-user pi --ssh-password '{{password}}' --sudo --node-name NODE_NAME_YOU_WANT --run-list 'recipe[d-base::default]'
 
 ## Ramifications of doing this ##
 
