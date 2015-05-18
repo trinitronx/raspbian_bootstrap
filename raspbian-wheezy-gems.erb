@@ -36,19 +36,8 @@ gem install chef --no-rdoc --no-ri --verbose
 mkdir -p /etc/chef
 
 if [ ! -f /usr/local/bin/chef-client ]; then
-(
-cat <<'EOP'
-#!/bin/sh
-
-PATH=/opt/chef/bin:\$PATH
-export PATH
-/opt/chef/bin/chef-client "$@"
-EOP
-) > /usr/local/bin/chef-client
+  ln -s /opt/chef/bin/chef-client /usr/local/bin/
 fi
-
-chmod 755 /usr/local/bin/chef-client
-
 
 (
 cat <<'EOP'
