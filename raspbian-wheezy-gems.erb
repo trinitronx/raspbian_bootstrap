@@ -1,16 +1,27 @@
 bash -l -c '
 <%= "export http_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
+RUBY_VER=2.2.2
+
 if [ ! -f /usr/bin/chef-client ]; then
+  which aptitude
+  if [ $? != 0 ]; then
+    echo "missing aptitude - installing that first"
+    apt-get install -y aptitude
+  fi
 
   aptitude update
   aptitude install -y wget git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev ntpdate
   # ruby-2.2 ruby-dev-2.2 # not available :(
+  #
+
+  echo "starting ntp and syncing to pool"
   /etc/init.d/ntp stop
   ntpdate pool.ntp.org
   /etc/init.d/ntp start
 
   if [ ! -d /usr/local/src/ruby-build ]; then
+    echo "installing ruby-build"
     git clone https://github.com/sstephenson/ruby-build.git /usr/local/src/ruby-build
     cd /usr/local/src/ruby-build
     ./install.sh
@@ -19,7 +30,8 @@ if [ ! -f /usr/bin/chef-client ]; then
   mkdir -p /opt/chef
 
   if [ ! -f /opt/chef/bin/ruby ]; then
-    /usr/local/bin/ruby-build 2.2.2 /opt/chef
+    echo "installing ruby $RUBY_VER into /opt/chef using ruby-build"
+    /usr/local/bin/ruby-build $RUBY_VER /opt/chef
   fi
 
 fi
