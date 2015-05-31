@@ -11,9 +11,8 @@ if [ ! -f /usr/bin/chef-client ]; then
   fi
 
   aptitude update
-  aptitude install -y wget git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev ntpdate
+  aptitude install -y curl wget git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev ntpdate
   # ruby-2.2 ruby-dev-2.2 # not available :(
-  #
 
   echo "starting ntp and syncing to pool"
   /etc/init.d/ntp stop
@@ -27,12 +26,21 @@ if [ ! -f /usr/bin/chef-client ]; then
     ./install.sh
   fi
 
-  mkdir -p /opt/chef
-
-  if [ ! -f /opt/chef/bin/ruby ]; then
-    echo "installing ruby $RUBY_VER into /opt/chef using ruby-build"
-    /usr/local/bin/ruby-build $RUBY_VER /opt/chef
+if [ ! -d /opt/chef ] ; then 
+  pushd . 
+  cd / 
+  echo "downloading pre-built rasbpian-opt_chef ruby for /opt/chef"
+  curl http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian-opt_chef-201505.tgz | tar xz 
+  if [ $? != 0 ]; then
+    echo "curl of raspbian-opt_chef failed - using ruby build instead"
+    mkdir -p /opt/chef
+    if [ ! -f /opt/chef/bin/ruby ]; then
+      echo "installing ruby $RUBY_VER into /opt/chef using ruby-build"
+      /usr/local/bin/ruby-build $RUBY_VER /opt/chef
+    fi
   fi
+  popd
+fi
 
 fi
 
