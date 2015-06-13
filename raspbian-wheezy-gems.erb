@@ -59,6 +59,7 @@ if [ ! -f /usr/local/bin/chef-client ]; then
   ln -s /opt/chef/bin/chef-client /usr/local/bin/
 fi
 
+<% if validation_key %>
 (
 cat <<'EOP'
 <%= validation_key %>
@@ -67,6 +68,15 @@ EOP
 awk NF /tmp/validation.pem > /etc/chef/validation.pem
 rm /tmp/validation.pem
 chmod 0600 /etc/chef/validation.pem
+<% end -%>
+
+<% if client_pem %>
+
+cat > /etc/chef/client.pem <<'EOP'
+<%= ::File.read(::File.expand_path(client_pem)) %>
+EOP
+chmod 0600 /etc/chef/client.pem
+<% end %>
 
 <% if @chef_config[:encrypted_data_bag_secret] -%>
 (
