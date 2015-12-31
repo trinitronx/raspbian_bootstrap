@@ -31,3 +31,8 @@ You'll have a /usr/local/bin/chef-client to run chef-client with right path for 
 
 *Note:* This bootstraps just runs chef-client once.  This does not setup any chef-client as a daemon stuff.
 
+# Credits and Contributors
+
+* @tinoschroeter : [Tino Schröter](https://github.com/tinoschroeter/raspbian_bootstrap) as original author
+* @dayne : [dayne](http://dayne.broderson.org) updated and evolved to support Chef 12
+* @in-bto : [ino-bto](https://github.com/ino-bto) for [trusted certs forwarding to client node](https://github.com/dayne/raspbian_bootstrap/pull/1)
