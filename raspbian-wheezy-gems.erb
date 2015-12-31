@@ -108,6 +108,11 @@ cat <<'EOP'
 EOP
 ) > /etc/chef/client.rb
 
+<% if @chef_config[:trusted_certs_dir] -%>
+mkdir -p /etc/chef/trusted_certs
+<%= trusted_certs_content %>
+<% end -%>
+
 (
 cat <<'EOP'
 <%= first_boot.to_json %>
