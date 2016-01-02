@@ -1,29 +1,22 @@
 bash -l -c '
 <%= "export http_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
-RUBY_VER=2.2.2
+RUBY_VER=2.2.3
+BUILT_CHEF_TGZ=http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian-opt_chef-201505.tgz
 
 if [ ! -f /usr/bin/chef-client ]; then
-  which aptitude
-  if [ $? != 0 ]; then
-    echo "missing aptitude - installing that first"
-    apt-get install -y aptitude
-  fi
+  apt-get update
+  apt-get purge ruby1.9 -y
+  apt-get install -y curl wget git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev ntpdate
 
-  aptitude update
-  aptitude install -y curl wget git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev ntpdate
-  # ruby-2.2 ruby-dev-2.2 # not available :(
+  ntpdate -u pool.ntp.org
 
-  echo "starting ntp and syncing to pool"
-  /etc/init.d/ntp stop
-  ntpdate pool.ntp.org
-  /etc/init.d/ntp start
-
-if [ ! -d /opt/chef ] ; then 
-  pushd . 
-  cd / 
+if [ ! -d /opt/chef ] ; then
+  pushd .
+  cd /
   echo "downloading pre-built rasbpian-opt_chef ruby for /opt/chef"
-  curl http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian-opt_chef-201505.tgz | tar xz 
+  curl $BUILT_CHEF_TGZ | tar xz
+  false
   if [ $? != 0 ]; then
     echo "curl of raspbian-opt_chef failed - using ruby build instead"
     if [ ! -d /usr/local/src/ruby-build ]; then
