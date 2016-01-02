@@ -1,8 +1,8 @@
 bash -l -c '
 <%= "export http_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
-RUBY_VER=2.2.3
-BUILT_CHEF_TGZ=http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian-opt_chef-201505.tgz
+RUBY_VER=2.2.4
+BUILT_CHEF_TGZ=http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian-opt_chef-201601.tgz
 
 if [ ! -f /usr/bin/chef-client ]; then
   apt-get update
@@ -16,7 +16,6 @@ if [ ! -d /opt/chef ] ; then
   cd /
   echo "downloading pre-built rasbpian-opt_chef ruby for /opt/chef"
   curl $BUILT_CHEF_TGZ | tar xz
-  false
   if [ $? != 0 ]; then
     echo "curl of raspbian-opt_chef failed - using ruby build instead"
     if [ ! -d /usr/local/src/ruby-build ]; then
