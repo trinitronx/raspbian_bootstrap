@@ -4,10 +4,12 @@
 
 Chef doesn't offer a omnibus chef-client for raspberry pi yet.  This bootstrap script helps get around that by building ruby2.2 and gem installing chef-client onto the node.  
 
-Before you start make sure of the following
+Before you start check the following:
 * your chef workstation environment is setup and ready with knife
 * your pi is on the network and you can login as root
 * have some patience - this will take a while
+
+This script has been tested against raspbian-wheezy but should likely work gracefully for other linux systems.
 
 ## installation ##
 
@@ -27,6 +29,10 @@ A full on example of one that applies  What I personally will be doing later for
 * `/opt/chef` with a ruby 2.2 compiled from ruby-build.
 * pi's clock will be synchronized and pi running [ntpd](http://doc.ntp.org/4.1.0/ntpd.htm) (network time protocol daemon).
 * `/usr/local/bin/chef-client` to run chef-client with right path for chef & ruby.
+
+## Pre-compiled /opt/chef
+
+Note: I have a short attention span and waiting for ruby to compile on a pi is boring. You have option of using my prebuilt /opt/chef if you want. Just open up the script and twiddle the `false` to `true`. Just look for the comment around line 19.
 
 # Credits and Contributors
 

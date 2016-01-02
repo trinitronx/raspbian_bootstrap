@@ -14,13 +14,18 @@ if [ ! -f /usr/bin/chef-client ]; then
 if [ ! -d /opt/chef ] ; then
   pushd .
   cd /
-  echo "downloading pre-built rasbpian-opt_chef ruby for /opt/chef"
-  curl $BUILT_CHEF_TGZ | tar xz
+  # Change to true to use a prebuilt (by @dayne) /opt/chef
+  if false; then
+    echo "downloading pre-built raspbian-opt_chef ruby for /opt/chef"
+    curl $BUILT_CHEF_TGZ | tar xz
+  else
+    false
+  fi
   if [ $? != 0 ]; then
     echo "curl of raspbian-opt_chef failed - using ruby build instead"
     if [ ! -d /usr/local/src/ruby-build ]; then
       echo "installing ruby-build"
-      git clone https://github.com/sstephenson/ruby-build.git /usr/local/src/ruby-build
+      git clone https://github.com/rbenv/ruby-build.git /usr/local/src/ruby-build
       cd /usr/local/src/ruby-build
       ./install.sh
     fi
