@@ -8,20 +8,9 @@ if [ ! -f /usr/bin/chef-client ]; then
 
   ntpdate -u pool.ntp.org
 
-if [ ! -d /opt/chef ] ; then
-  pushd .
-  cd /
-  # Change to true to use a prebuilt (by @dayne) /opt/chef
-  if false; then
-    echo "downloading pre-built raspbian-opt_chef ruby for /opt/chef"
-    curl $BUILT_CHEF_TGZ | tar xz
-	exit
-  else
-    false
-  fi
-  if [ $? != 0 ]; then
-    echo "curl of raspbian-opt_chef failed - using ruby build instead"
-	sleep 5
+  if [ ! -d /opt/chef ] ; then
+    pushd .
+    cd /
     if [ ! -d /usr/local/src/ruby-build ]; then
       echo "installing ruby-build"
       git clone https://github.com/rbenv/ruby-build.git /usr/local/src/ruby-build
@@ -37,10 +26,8 @@ if [ ! -d /opt/chef ] ; then
       echo "installing ruby $RUBY_VER into /opt/chef using ruby-build"
       /usr/local/bin/ruby-build $RUBY_VER /opt/chef
     fi
+    popd
   fi
-  popd
-fi
-
 fi
 
 PATH=/opt/chef/bin:$PATH
