@@ -20,11 +20,11 @@ This script has been tested against `raspbian-wheezy`, and `raspbian-jessie` but
 
 The older raspbian-wheezy will use [ruby-build](https://github.com/rbenv/ruby-build) to build a ruby and then install chef into /opt/chef. _This will take a long time_
 
-The raspbian-jessie has some options available to you if you append as the *last* argument on your bootstrap. The default is the **--build** option:
+The raspbian-jessie has some options to get ruby and chef: compile with ruby-build, prebuilt bundle, or adding a new apt repository to get ruby2.3.  The default is my to build it.  Prefix your `knife bootstrap` like `COPT=prebuilt knife bootstrap` with the following options:
 
-* **--build**  - Does the same as above, uses [ruby-build](https://github.com/rbenv/ruby-build) to build a new ruby - _Slow: This will take a long time_
-* **--prebuilt** - Same as above, only it comes from a tar.gz bundle [I](http://github.com/dayne) did. _Fast: Only do this if you are Dayne or trust me_
-* **--stretch**  - Adds the *stretch* apt repository added to your pie and ruby-2.3 from there installed. _Fast: Do this if you don't mind stretch added to your pi_
+* **build**  - Does the same as above, uses [ruby-build](https://github.com/rbenv/ruby-build) to build a new ruby - _Slow: This will take a long time_
+* **prebuilt** - Same as above, only it comes from a tar.gz bundle [I](http://github.com/dayne) did. _Fast: Only do this if you are Dayne or trust me_
+* **stretch**  - Adds the *stretch* apt repository to pi and installs ruby-2.3 from apt . _Fast: Do this if you don't mind stretch added to your pi_
 
 ## installation ##
 
@@ -36,7 +36,7 @@ Or to sudo in via pi user if you don't have root access (I set up my ssh keys fi
 
 A full on example of a `knife` command that applies a Chef recipe. Using my own d-base recipe and taking advantage of my pre-built /opt/chef
 
-    knife bootstrap -t raspbian-jessiegems.erb --ssh-user pi --ssh-password '{{password}}' --sudo --node-name YourPisName --run-list 'recipe[d-base::default]' --prebuilt
+    COPT=prebuilt knife bootstrap -t raspbian-jessiegems.erb -u pi -x -N NODE_NAME --run-list 'recipe[d-base::default]' ADDRESS_OF_PI
 
 ## Ramifications of using this script ##
 

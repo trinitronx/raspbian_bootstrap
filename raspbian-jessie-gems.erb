@@ -1,19 +1,14 @@
 sh -c '
 <%= "export https_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
-<% 
-case ARGV.last 
-when "--stretch"
-%>
-    <%= File.read('ruby-stretch') %>
-<% 
-when "--build" 
-else 
-%>
-    <%= File.read('ruby-chef-build.sh') %>
-<% 
-end 
-%>
+<% case ENV['COPT'] 
+when "stretch" %>
+<%= File.read('ruby-stretch') %>
+<% when "build" %>
+<%= File.read('ruby-chef-build.sh') %>
+<% else %>
+<%= File.read('ruby-chef-build.sh') %>
+<% end %>
 
 PATH=/opt/chef/bin:$PATH
 export PATH
