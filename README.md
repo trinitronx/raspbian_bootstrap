@@ -49,6 +49,7 @@ Or to sudo in via pi user if you don't have root access
 Note: I have a short attention span and waiting for ruby to compile on a pi is boring. You have option of using my prebuilt `/opt/chef` if you want using that `COPT=prebuilt` flag on the jessie bootstrap.  That option is also available for wheezy - Just open up the script and twiddle the `false` to `true`. Just look for the comment around **line 19**. Currently an image only exists for `ruby2.2` built for Raspbian `wheezy`.
 
 A full on example of a `knife` command that applies a Chef recipe. Using my own d-base recipe and taking advantage of my pre-built /opt/chef
+
     COPT=prebuilt knife bootstrap -t raspbian-jessiegems.erb -u pi -x \
                   -N NODE_NAME --run-list 'recipe[d-base::default]' ADDRESS_OF_PI
 
