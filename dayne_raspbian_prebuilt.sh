@@ -9,7 +9,7 @@ if [ $? != 0 ]; then
   apt-get update
   apt-get install -y curl wget git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev ntpdate
 else
-  echo "INFO: system all ready nicely setup for dev tools and ntpdate"
+  echo "INFO: system allready nicely setup for dev tools and ntpdate"
 fi
 
 ntpdate -u pool.ntp.org
@@ -17,11 +17,11 @@ ntpdate -u pool.ntp.org
 if [ ! -d /opt/chef ] ; then
   cd /opt/
   echo "INFO: downloading pre-built raspbian-opt_chef ruby for /opt/chef"
-  echo " >> $BUILT_CHEF_TGZ "
+  echo "INFO: $BUILT_CHEF_TGZ "
   curl $BUILT_CHEF_TGZ | tar xz
   if [ $? != 0 ]; then
     echo "ERROR: download of prebuilt bundle failed - try using ruby build instead"
-    echo "    >> failed to download: $BUILT_CHEF_TGZ"
+    echo "ERROR: failed to download: $BUILT_CHEF_TGZ"
     exit 1
   else 
     echo "INFO: extraction of prebuilt ruby and chef into /opt/chef successful"
