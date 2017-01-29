@@ -2,9 +2,7 @@
 
 ### install `chef-client` on raspberry pi (`raspbian`).
 
-Chef doesn't offer a omnibus `chef-client` for raspberry pi yet.  This `knife bootstrap` script helps get around that by offering you a few methods to get a Raspberry Pi ready chef-client.
-
-building `ruby` and gem installing `chef-client` onto the node.  
+Chef doesn't offer a omnibus `chef-client` for raspberry pi yet.  This `knife bootstrap` script helps get around that by offering you a few methods to get a Raspberry Pi ready chef-client.  
 
 There are bootstrap scripts to support both `raspbian-wheezy` and `raspbian-jessie`. The commands below replace the release codename with the OS running on your Raspberry Pi. If for some reason you do not wish to run `ssh` in the subshell, just replace it manually.
 
@@ -20,11 +18,11 @@ This script has been tested against `raspbian-wheezy`, and `raspbian-jessie` but
 
 The older raspbian-wheezy will use [ruby-build](https://github.com/rbenv/ruby-build) to build a ruby and then install chef into /opt/chef. _This will take a long time_
 
-The raspbian-jessie has some options to get ruby and chef: compile with ruby-build, prebuilt bundle, or adding a new apt repository to get ruby2.3.  The default is my to build it.  Prefix your `knife bootstrap` like `COPT=prebuilt knife bootstrap` with the following options:
+The raspbian-jessie has some options to get ruby and chef: compile with ruby-build, prebuilt bundle, or adding a new apt repository to get ruby2.3.  The default is my to build it.  Prefix your `knife bootstrap` like `OPT=prebuilt knife bootstrap` with the following options:
 
-* **build**  - Does the same as above, uses [ruby-build](https://github.com/rbenv/ruby-build) to build a new ruby - _Slow: This will take a long time_
-* **prebuilt** - Same as above, only it comes from a tar.gz bundle [I](http://github.com/dayne) did. _Fast: Only do this if you are Dayne or trust me_
-* **stretch**  - Adds the *stretch* apt repository to pi and installs ruby-2.3 from apt . _Fast: Do this if you don't mind stretch added to your pi_
+* **`OPT=build`**  - Default: Uses [ruby-build](https://github.com/rbenv/ruby-build) to build a new ruby - _Slow: This will take a long time_
+* **`OPT=prebuilt`** - Same as above, only it comes from a tar.gz bundle [I](http://github.com/dayne) did. _Fast: Only do this if you are Dayne or trust me_
+* **`OPT=stretch`**  - Adds the *stretch* apt repository to pi and installs ruby-2.3 from apt . _Fast: Do this if you don't mind new apt repo on your pi_
 
 ## installation ##
 
@@ -46,11 +44,11 @@ Or to sudo in via pi user if you don't have root access
 
 ## Pre-compiled /opt/chef
 
-Note: I have a short attention span and waiting for ruby to compile on a pi is boring. You have option of using my prebuilt `/opt/chef` if you want using that `COPT=prebuilt` flag on the jessie bootstrap.  That option is also available for wheezy - Just open up the script and twiddle the `false` to `true`. Just look for the comment around **line 19**. Currently an image only exists for `ruby2.2` built for Raspbian `wheezy`.
+Note: I have a short attention span and waiting for ruby to compile on a pi is boring. You have option of using my prebuilt `/opt/chef` if you want using that `OPT=prebuilt` flag on the jessie bootstrap.  That option is also available for wheezy - Just open up the script and twiddle the `false` to `true`. Just look for the comment around **line 19**. Currently an image only exists for `ruby2.2` built for Raspbian `wheezy`.
 
 A full on example of a `knife` command that applies a Chef recipe. Using my own d-base recipe and taking advantage of my pre-built /opt/chef
 
-    COPT=prebuilt knife bootstrap -t raspbian-jessiegems.erb -u pi -x \
+    OPT=prebuilt knife bootstrap -t raspbian-jessiegems.erb -u pi -x \
                   -N NODE_NAME --run-list 'recipe[d-base::default]' ADDRESS_OF_PI
 
 
