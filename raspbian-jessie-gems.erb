@@ -1,11 +1,11 @@
 sh -c '
 <%= "export https_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
-<% case ENV['COPT'] 
-when "stretch" %>
+<% case ENV['COPT']  %>
+<% when "stretch" %>
 <%= File.read('ruby-stretch') %>
-<% when "build" %>
-<%= File.read('ruby-chef-build.sh') %>
+<% when "prebuilt" %>
+<%= File.read('dayne_raspbian_prebuilt.sh') %>
 <% else %>
 <%= File.read('ruby-chef-build.sh') %>
 <% end %>
