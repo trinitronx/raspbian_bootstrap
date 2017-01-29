@@ -1,4 +1,4 @@
-BUILT_CHEF_TGZ=http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian-opt_chef-r233c121831.tgz
+BUILT_CHEF_TGZ=http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian_chef-v12.18.31-r2.3.3.tar.gz
 
 if [ ! -f /usr/bin/chef-client ]; then
   apt-get update
@@ -8,7 +8,7 @@ if [ ! -f /usr/bin/chef-client ]; then
 
 if [ ! -d /opt/chef ] ; then
   pushd .
-  cd /
+  cd /opt/
   # Change to true to use a prebuilt (by @dayne) /opt/chef
   echo "downloading pre-built raspbian-opt_chef ruby for /opt/chef"
   curl $BUILT_CHEF_TGZ | tar xz
