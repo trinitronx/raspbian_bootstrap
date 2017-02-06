@@ -3,7 +3,7 @@ sh -c '
 
 <% case ENV['OPT']  %>
 <% when "stretch" %>
-<%= File.read('ruby-stretch') %>
+<%= File.read('ruby-stretch.sh') %>
 <% when "prebuilt" %>
 <%= File.read('dayne_raspbian_prebuilt.sh') %>
 <% else %>
