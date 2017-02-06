@@ -59,4 +59,4 @@ A full on example of a `knife` command that applies a Chef recipe. Using my own 
 * @in-bto : [ino-bto](https://github.com/ino-bto) for [trusted certs forwarding to client node](https://github.com/dayne/raspbian_bootstrap/pull/1)
 * @Edubits: [Edubits](https://github.com/Edubits) updated to Jessie
 * @trinitronx: [trinitronx](https://github.com/trinitronx) Merged support for both Wheezy and Jessie
-* @marcusbooyah: [marcusbooyah](https://github.com/marcusbooyah) Tested and fixed bugs in `OPT=stretch`
+* @marcusbooyah: [marcusbooyah](https://github.com/marcusbooyah) Tested and [fixed bugs in `OPT=stretch`](https://github.com/dayne/raspbian_bootstrap/pull/5)
