@@ -51,7 +51,7 @@ Note: I have a short attention span and waiting for ruby to compile on a pi is b
 
 A full on example of a `knife` command that applies a Chef recipe. Using my own d-base recipe and taking advantage of my pre-built /opt/chef
 
-    OPT=prebuilt knife bootstrap -t raspbian-jessiegems.erb -u pi -x \
+    OPT=prebuilt knife bootstrap -t raspbian-jessie-gems.erb -x pi --sudo \
                   -N NODE_NAME --run-list 'recipe[d-base::default]' ADDRESS_OF_PI
 
 # Credits and Contributors
