@@ -17,32 +17,28 @@ This script has been tested against `raspbian-stretch` and may work gracefully f
 The `raspbian_bootstrap.erb` uses an `OPT` environent variable to provide provides different options to get ruby and chef: `build` to compile with [chef_omnibus_build](https://gist.github.com/dayne/330c331ef2b5a69b318f5fb01c49b40a) or a `prebuilt` debian I've already built and host.
 
 Prefix your `knife bootstrap` like `OPT=prebuilt knife bootstrap` with the following options:
-* **`OPT=build`**  -  Uses my omnibus_builder script to build a new ruby, omnibus-toolchain, and then chef.
- *  _Slow: This will take a long time_
- * Note: This also creates an omnibus build user (locked password).
-* **`OPT=prebuilt`** - Same as above, only it comes from a prebuilt debian
- * _Fast: Only do this if you are Dayne or trust Dayne_
+* **`OPT=build`**  [chef_omnibus_builder](https://gist.github.com/dayne/330c331ef2b5a69b318f5fb01c49b40a) to build a ruby, omnibus-toolchain, and then a chef package.
+**  _Slow: This will take a long time (hours)_
+** Note: This also creates an omnibus build user with a locked password.
+* **`OPT=prebuilt`** Installs prebuild .deb package
+** _Fast: Only do this if you are Dayne or trust Dayne_
 
-## installation ##
+## Usage
 
+Clone this repo:
 `git clone https://github.com/dayne/raspbian_bootstrap`
 
-`knife bootstrap -t raspbian_bootstrap.erb -x root PI_ADDRESS`
-
-Or to sudo in via pi user if you don't have root access
-
+Bootstrap the pi:
 `knife bootstrap -t raspbian_bootstrap.erb --ssh-user pi --sudo PI_ADDRESS`
+
+The full build process bootstrap:
+`OPT=build knife bootstrap -t raspbian_bootstrap.erb --ssh-user pi --sudo PI_ADDRESS`
 
 ## Ramifications of using this script ##
 
 * Chef installed
 * pi's clock will be synchronized and pi running [`ntpd`](http://doc.ntp.org/4.1.0/ntpd.htm) (network time protocol daemon).
 * `/usr/local/bin/chef-client` to run `chef-client` with right path for Chef & `ruby`.
-
-A full on example of a `knife` command that applies a Chef recipe. Using my own d-base recipe and taking advantage of my pre-built /opt/chef
-
-    OPT=prebuilt knife bootstrap -t raspbian_bootstrap.erb -x pi --sudo \
-                  -N NODE_NAME --run-list 'recipe[d-base::default]' ADDRESS_OF_PI
 
 # Credits and Contributors
 
