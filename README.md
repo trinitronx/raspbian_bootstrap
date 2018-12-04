@@ -4,7 +4,7 @@
 
 Chef doesn't offer a omnibus `chef-client` for raspberry pi **yet**. Any minute now.
 
-This `knife bootstrap` script helps get around that by offering you a few methods to get a Raspberry Pi ready chef-client.  
+This `knife bootstrap` script helps get around that by either building a chef omnibus from scratch or using a pre-build deb package using my [chef_omnibus_build](https://gist.github.com/dayne/330c331ef2b5a69b318f5fb01c49b40a) tool.
 
 Before you start check the following:
 
@@ -14,23 +14,24 @@ Before you start check the following:
 
 This script has been tested against `raspbian-stretch` and may work gracefully for other Debian-*based* Linux systems.
 
-The `raspbian_bootstrap.erb` uses an `OPT` environent variable to provide provides different options to get ruby and chef: `build` to compile with ruby-build, `prebuilt` to use a prebuilt bundle I've made and host, and `gems` to use the system ruby and bundler to install chef.
-
+The `raspbian_bootstrap.erb` uses an `OPT` environent variable to provide provides different options to get ruby and chef: `build` to compile with [chef_omnibus_build](https://gist.github.com/dayne/330c331ef2b5a69b318f5fb01c49b40a) or a `prebuilt` debian I've already built and host.
 
 Prefix your `knife bootstrap` like `OPT=prebuilt knife bootstrap` with the following options:
 * **`OPT=build`**  -  Uses my omnibus_builder script to build a new ruby, omnibus-toolchain, and then chef.
  *  _Slow: This will take a long time_
  * Note: This also creates an omnibus build user (locked password).
 * **`OPT=prebuilt`** - Same as above, only it comes from a prebuilt debian
- * _Fast: Only do this if you are Dayne or trust Dayne
+ * _Fast: Only do this if you are Dayne or trust Dayne_
 
 ## installation ##
 
-    knife bootstrap -t raspbian_bootstrap.erb -x root address_of_your_pi
+`git clone https://github.com/dayne/raspbian_bootstrap`
+
+`knife bootstrap -t raspbian_bootstrap.erb -x root PI_ADDRESS`
 
 Or to sudo in via pi user if you don't have root access
 
-    knife bootstrap -t raspbian_bootstrap.erb --ssh-user pi --sudo address_of_your_pi
+`knife bootstrap -t raspbian_bootstrap.erb --ssh-user pi --sudo PI_ADDRESS`
 
 ## Ramifications of using this script ##
 
