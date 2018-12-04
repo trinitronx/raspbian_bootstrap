@@ -1,8 +1,6 @@
 sh -c '
 <%= "export https_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
-<%= File.read('env.sh') %>
-
 <% case ENV['OPT']  %>
 <% when "build" %>
   <%= File.read('ruby-omnibus-build.sh') %>
