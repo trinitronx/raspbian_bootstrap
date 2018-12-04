@@ -7,7 +7,7 @@ sh -c '
 <% when "build" %>
   <%= File.read('ruby-omnibus-build.sh') %>
 <% else %>
-  <%= File.read('ruby-omnibus-dayne_build.sh') %>
+  <%= File.read('ruby-omnibus-prebuilt.sh') %>
 <% end %>
 
 PATH=/opt/chef/bin:$PATH
