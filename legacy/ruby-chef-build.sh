@@ -1,9 +1,8 @@
-RUBY_VER=2.3.3
-BUILT_CHEF_TGZ=http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/raspbian-opt_chef-r233c121831.tgz
+RUBY_VER=2.5.3
 
 if [ ! -f /usr/bin/chef-client ]; then
   apt-get update
-  apt-get purge ruby1.9 -y
+  apt-get purge ruby1.9 ruby ruby2.3-y
   apt-get install -y curl wget git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev ntpdate
 
   ntpdate -u pool.ntp.org
