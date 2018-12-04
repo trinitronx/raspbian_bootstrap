@@ -10,11 +10,10 @@ The `raspbian_bootstrap.erb` uses an `OPT` environent variable to provide provid
 
 * **`OPT=prebuilt`** Installs prebuild .deb package
   * _Fast: Fast - uses my latest prebuilt chef_
-  * `CHEF_URL=http://your_url_to/your_package.deb` - specify your own package
-    URL if you want.
+  * `CHEF_URL=http://your_url_to/your_package.deb` - specify your own prebuilt chef package.
 * **`OPT=build`** [chef_omnibus_builder](https://gist.github.com/dayne/330c331ef2b5a69b318f5fb01c49b40a) to build a ruby, omnibus-toolchain, and then a chef package.
-  * _Slow: Takes a long time (hours)_
-  * Note: Creates an `omnibus` user with a locked password for the build. 
+  * _Slow: Takes many hours._
+  * Note: Creates an `omnibus` user with a locked password for the build process. 
 
 ## Usage
 
