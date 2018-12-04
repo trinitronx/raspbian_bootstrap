@@ -7,3 +7,5 @@
 #  CHEF_VER=14.7.17
 
 curl -L https://git.io/fpiRv | sudo bash
+
+# curl -L https://git.io/fpiRv | sudo RUBY_VER= CHEF_VER= bash
