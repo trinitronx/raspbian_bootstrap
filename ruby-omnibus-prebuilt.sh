@@ -5,7 +5,7 @@ if [ -z "${CHEF_URL}"  ]; then
   # not used yet
   CHEF_SHA=b5df07e6b4c88ee2aaf02158ba19e4f02c514e1791ab66a5b501924145282ac8
 fi
-CHEF_DEB=$(basename "$CHEF_URL")
+CHEF_DEB="$(basename "$CHEF_URL")"
 
 dpkg -s chef > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -31,7 +31,7 @@ cd /tmp
 
 echo "INFO: downloading pre-built chef"
 echo "INFO: $CHEF_URL"
-test -f $CHEF_DEB || curl -O "${CHEF_URL}"
+test -f "$CHEF_DEB" || curl -L -O "${CHEF_URL}"
 if [ $? -eq 0 ]; then
   echo "downloaded chef: $CHEF_DEB"
 else
