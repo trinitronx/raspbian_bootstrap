@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if [ -z "${CHEF_URL}"  ]; then
-  CHEF_URL="http://n1nj4net-public.s3-website-us-west-2.amazonaws.com/chef_14.8.10+20181204005213-1_armhf.deb"
+  CHEF_URL="https://www.dropbox.com/s/zyywlp6a6lq0w7a/chef-15.8.23-rpi3-armv7l_armhf.deb?raw=1"
   # not used yet
-  CHEF_SHA=6a8a9fd8a5ba9ee00f1ab8eb6170fe6de8fb5d97bcd807e8366b9919140f8d2f
+  CHEF_SHA=b5df07e6b4c88ee2aaf02158ba19e4f02c514e1791ab66a5b501924145282ac8
 fi
 CHEF_DEB=$(basename "$CHEF_URL")
 
